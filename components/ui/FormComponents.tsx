@@ -1,6 +1,6 @@
 import React from 'react';
-import { motion, HTMLMotionProps } from 'framer-motion';
-import { Check, ChevronRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Check } from 'lucide-react';
 
 // --- Button ---
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -9,12 +9,12 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button: React.FC<ButtonProps> = ({ variant = 'primary', className = '', children, icon, ...props }) => {
-  const baseStyles = "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none h-10 px-4 py-2";
+  const baseStyles = "inline-flex items-center justify-center rounded-lg text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none h-11 px-6";
   
   const variants = {
-    primary: "bg-primary-600 text-white hover:bg-primary-700 shadow-sm",
-    outline: "border border-slate-200 bg-transparent hover:bg-slate-100 text-slate-900",
-    ghost: "hover:bg-slate-100 text-slate-600 hover:text-slate-900"
+    primary: "bg-black text-white hover:bg-zinc-800 shadow-lg active:scale-[0.98]",
+    outline: "border border-zinc-200 bg-transparent hover:border-black hover:bg-zinc-50 text-zinc-900",
+    ghost: "hover:bg-zinc-100 text-zinc-600 hover:text-black"
   };
 
   return (
@@ -34,9 +34,9 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 export const Input: React.FC<InputProps> = ({ label, error, className = '', ...props }) => {
   return (
     <div className="space-y-2 w-full">
-      {label && <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-slate-700">{label}</label>}
+      {label && <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">{label}</label>}
       <input
-        className={`flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 transition-all ${error ? 'border-red-500 focus:ring-red-500' : ''} ${className}`}
+        className={`flex h-12 w-full rounded-lg border border-zinc-200 bg-white px-4 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 transition-all shadow-sm hover:border-zinc-300 ${error ? 'border-red-500 focus:ring-red-500' : ''} ${className}`}
         {...props}
       />
       {error && <p className="text-sm text-red-500">{error}</p>}
@@ -57,31 +57,37 @@ interface SelectionCardProps {
 export const SelectionCard: React.FC<SelectionCardProps> = ({ selected, onClick, title, description, icon, type = 'radio' }) => {
   return (
     <motion.div
-      whileHover={{ scale: 1.01 }}
-      whileTap={{ scale: 0.99 }}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
       onClick={onClick}
       className={`
-        relative flex cursor-pointer rounded-lg border p-4 shadow-sm focus:outline-none transition-all duration-200
+        relative flex cursor-pointer rounded-xl border p-5 focus:outline-none transition-colors duration-300
         ${selected 
-          ? 'border-primary-500 bg-primary-50 ring-1 ring-primary-500' 
-          : 'border-slate-200 bg-white hover:border-primary-300 hover:bg-slate-50'}
+          ? 'border-black bg-zinc-50 ring-1 ring-black shadow-md' 
+          : 'border-zinc-200 bg-white shadow-sm hover:border-zinc-300 hover:shadow-xl'}
       `}
     >
-      <div className="flex w-full items-start justify-between">
-        <div className="flex items-center gap-3">
-          {icon && <div className={`p-2 rounded-md ${selected ? 'bg-primary-100 text-primary-600' : 'bg-slate-100 text-slate-500'}`}>{icon}</div>}
+      <div className="flex w-full items-start justify-between gap-4">
+        <div className="flex items-start gap-4">
+          {icon && (
+            <div className={`p-2.5 rounded-lg ${selected ? 'bg-black text-white' : 'bg-zinc-100 text-zinc-500'} transition-colors duration-300`}>
+              {icon}
+            </div>
+          )}
           <div className="flex flex-col text-left">
-            <span className={`text-sm font-semibold ${selected ? 'text-primary-900' : 'text-slate-900'}`}>{title}</span>
-            {description && <span className={`text-xs mt-1 ${selected ? 'text-primary-700' : 'text-slate-500'}`}>{description}</span>}
+            <span className={`text-base font-bold ${selected ? 'text-black' : 'text-zinc-700'}`}>{title}</span>
+            {description && <span className={`text-sm mt-1 leading-snug ${selected ? 'text-zinc-600' : 'text-zinc-400'}`}>{description}</span>}
           </div>
         </div>
+        
+        {/* Indicator Circle/Box */}
         <div className={`
-          flex h-5 w-5 items-center justify-center rounded-full border
+          flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition-all duration-300
           ${selected 
-            ? 'border-primary-600 bg-primary-600 text-white' 
-            : 'border-slate-300 bg-transparent'}
+            ? 'border-black bg-black text-white scale-110' 
+            : 'border-zinc-300 bg-transparent'}
         `}>
-          {selected && <Check size={12} strokeWidth={3} />}
+          {selected && <Check size={14} strokeWidth={3} />}
         </div>
       </div>
     </motion.div>
@@ -96,9 +102,9 @@ interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement
 export const TextArea: React.FC<TextAreaProps> = ({ label, className = '', ...props }) => {
   return (
     <div className="space-y-2 w-full">
-      {label && <label className="text-sm font-medium leading-none text-slate-700">{label}</label>}
+      {label && <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">{label}</label>}
       <textarea
-        className={`flex min-h-[120px] w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 transition-all ${className}`}
+        className={`flex min-h-[140px] w-full rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 transition-all shadow-sm hover:border-zinc-300 ${className}`}
         {...props}
       />
     </div>

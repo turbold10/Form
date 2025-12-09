@@ -1,34 +1,35 @@
 import React from 'react';
 import { StepWizard } from './components/StepWizard';
+import { Sparkles } from 'lucide-react';
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
-      {/* Navbar Placeholder */}
-      <header className="bg-white border-b border-slate-200 py-4 px-6 md:px-12">
+    <div className="min-h-screen bg-zinc-100 flex flex-col font-sans text-zinc-900 selection:bg-zinc-900 selection:text-white">
+      {/* Minimalist Header */}
+      <header className="bg-white/80 backdrop-blur-md border-b border-zinc-200 py-5 px-6 md:px-12 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-              T
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-black rounded-sm flex items-center justify-center text-white">
+              <Sparkles size={16} />
             </div>
-            <span className="font-bold text-slate-900 text-lg tracking-tight">Talent<span className="text-primary-600">Connect</span></span>
+            <span className="font-serif font-bold text-2xl tracking-tight text-black">Talent<span className="font-normal italic">Request</span></span>
           </div>
-          <div className="hidden md:flex text-sm text-slate-500 gap-6">
-            <span className="cursor-pointer hover:text-slate-900">How it Works</span>
-            <span className="cursor-pointer hover:text-slate-900">Success Stories</span>
-            <span className="cursor-pointer hover:text-slate-900">For Companies</span>
+          <div className="hidden md:flex text-sm font-medium text-zinc-500 gap-8">
+            <span className="cursor-pointer hover:text-black transition-colors">Process</span>
+            <span className="cursor-pointer hover:text-black transition-colors">Graduates</span>
+            <span className="cursor-pointer hover:text-black transition-colors">Pricing</span>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col items-center justify-center p-4 md:p-8">
-        <div className="w-full max-w-7xl mx-auto grid place-items-center">
+      <main className="flex-1 flex flex-col items-center justify-center p-4 md:p-12">
+        <div className="w-full max-w-6xl mx-auto grid place-items-center">
           <StepWizard />
         </div>
         
-        <div className="mt-8 text-center text-slate-400 text-sm">
-          <p>© {new Date().getFullYear()} TalentConnect. Connecting bootcamps with industry leaders.</p>
+        <div className="mt-12 text-center text-zinc-400 text-xs tracking-wider uppercase">
+          <p>© {new Date().getFullYear()} TalentRequest. Premium Engineering Talent.</p>
         </div>
       </main>
     </div>
